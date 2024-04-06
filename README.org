@@ -1,5 +1,18 @@
 #+TITLE:rawr Pixel Art Editor
 #+OPTIONS: toc:nil
 
-* rawr
-rawr stands for /raster art with raylib/.
+* /rawr/
+/rawr/ stands for /raster art with raylib/.
+
+* Prebuilt binaries
+** BSD
+I'm sure you can figure it out; you're a BSD user
+** Linux
+Coming soon! /(to extremely specific and limited platforms for now)/
+** Mac
+If you buy me a MacBook, I'll consider it maybe
+** Windows
+teehee what do you think?
+
+* Trivia
++ This is the first image ever saved with /rawr/: [[./first.png]]
