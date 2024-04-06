@@ -1,2 +1,5 @@
-* rawr Pixel Art Editor
+#+TITLE:rawr Pixel Art Editor
+#+OPTIONS: toc:nil
+
+* rawr
 rawr stands for /raster art with raylib/.
