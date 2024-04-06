@@ -1,0 +1,2 @@
+* rawr Pixel Art Editor
+rawr stands for /r/aster /a/rt /w/ith /r/aylib.
