@@ -2,7 +2,15 @@
 #+OPTIONS: toc:nil
 
 * /rawr/
-/rawr/ stands for /raster art with raylib/.
+/rawr/ stands for /raster art with raylib/. Draw in a fixed resolution in a
+single color! No erase! Only clear! A single fixed filename! What more could you
+ask for?
+
+** License
+[[https://www.gnu.org/graphics/gplv3-with-text-136x68.png]]
+
+* Installation
+
 
 * Prebuilt binaries
 ** BSD
