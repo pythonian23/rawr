@@ -16,6 +16,7 @@ static void init_raylib(void)
 	SetTraceLogLevel(LOG_LEVEL);
 	SetConfigFlags(FLAG_WINDOW_RESIZABLE | FLAG_WINDOW_UNFOCUSED);
 	InitWindow(1280, 720, "rawr Pixel Art Editor");
+	SetExitKey(KEY_Q);
 
 	camera = (Camera2D) {
 	0};
@@ -100,6 +101,7 @@ static void render(void)
 
 		DrawFPS(0, 0);
 	}
+
 	EndDrawing();
 }
 
