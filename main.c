@@ -52,10 +52,11 @@ static void handle_input(void)
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
 		for (int x = 0; x < cvs_get_width(); x++)
-			for (int y = 0; y < cvs_get_height(); y++)
-				cvs_set_pixel(x, y, (Color) {
-					      0, 0, 0, 0}
-	);
+			cvs_draw_line((Vector2) {
+				      x, 0}
+				      , (Vector2) {
+				      x, cvs_get_height() - 1}, (Color) {
+				      0, 0, 0, 0});
 
 	if (IsKeyPressed(KEY_S))
 		if (!cvs_save_to("img.png"))
