@@ -32,7 +32,7 @@ static void init(void)
 
 static Vector2 mouse_position(void)
 {
-	GetScreenToWorld2D(GetMousePosition(), camera);
+	return GetScreenToWorld2D(GetMousePosition(), camera);
 }
 
 static void handle_input(void)
