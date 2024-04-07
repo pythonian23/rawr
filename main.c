@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include "raymath.h"
+#include "raygui/src/raygui.h"
 #include "canvas.h"
 
 #ifndef LOG_LEVEL
@@ -28,8 +29,14 @@ static void init(void)
 	scale = 1;
 }
 
+static Vector2 mouse_position(void)
+{
+	GetScreenToWorld2D(GetMousePosition(), camera);
+}
+
 static void handle_input(void)
 {
+
 	static Vector2 draw_position;
 	static Vector2 draw_position_prev;
 
@@ -41,13 +48,17 @@ static void handle_input(void)
 		scale = 1;
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		draw_position = GetScreenToWorld2D(GetMousePosition(), camera);
+		draw_position = mouse_position();
 		draw_position_prev = draw_position;
 	}
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-		draw_position = GetScreenToWorld2D(GetMousePosition(), camera);
+		draw_position = mouse_position();
 		cvs_draw_line(draw_position_prev, draw_position, RED);
 		draw_position_prev = draw_position;
+	}
+
+	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
+		cvs_fill(mouse_position(), RED);
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
@@ -81,7 +92,8 @@ static void render(void)
 	{
 		ClearBackground(BLACK);
 
-		BeginMode2D(camera); {
+		BeginMode2D(camera);
+		{
 			DrawTexture(cvs_get_texture(), 0, 0, WHITE);
 		}
 		EndMode2D();

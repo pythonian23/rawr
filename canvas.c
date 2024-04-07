@@ -8,6 +8,23 @@ static Texture _texture;
 
 static bool _updated;
 
+static void flood_fill(int x, int y, Color color)
+{
+	if ((x < 0) || (_image.width <= x))
+		return;
+	if ((y < 0) || (_image.height <= y))
+		return;
+	if (ColorIsEqual(GetImageColor(_image, x, y), color))
+		return;
+
+	ImageDrawPixel(&_image, x, y, color);
+
+	flood_fill(x - 1, y, color);
+	flood_fill(x + 1, y, color);
+	flood_fill(x, y - 1, color);
+	flood_fill(x, y + 1, color);
+}
+
 void init_canvas(void)
 {
 	_bg_image = GenImageChecked(64, 64, 1, 1, DARKGRAY, GRAY);
@@ -16,24 +33,28 @@ void init_canvas(void)
 	_updated = true;
 }
 
+void cvs_update(void)
+{
+	static Image output;
+
+	UnloadTexture(_texture);
+	output = ImageCopy(_bg_image);
+
+	ImageDraw(&output, _image, (Rectangle) {
+		  0, 0, _bg_image.width, _bg_image.height}
+		  , (Rectangle) {
+		  0, 0, _image.width, _image.height}
+		  , WHITE);
+	_texture = LoadTextureFromImage(output);
+	_updated = false;
+
+	UnloadImage(output);
+}
+
 Texture cvs_get_texture(void)
 {
-	if (_updated) {
-		static Image output;
-
-		UnloadTexture(_texture);
-		output = ImageCopy(_bg_image);
-
-		ImageDraw(&output, _image, (Rectangle) {
-			  0, 0, _bg_image.width, _bg_image.height}
-			  , (Rectangle) {
-			  0, 0, _image.width, _image.height}
-			  , WHITE);
-		_texture = LoadTextureFromImage(output);
-		_updated = false;
-
-		UnloadImage(output);
-	}
+	if (_updated)
+		cvs_update();
 	return _texture;
 }
 
@@ -56,6 +77,12 @@ void cvs_set_pixel(Vector2 vec, Color color)
 void cvs_draw_line(Vector2 vec1, Vector2 vec2, Color color)
 {
 	ImageDrawLineV(&_image, vec1, vec2, color);
+	_updated = true;
+}
+
+void cvs_fill(Vector2 origin, Color color)
+{
+	flood_fill(origin.x, origin.y, color);
 	_updated = true;
 }
 
