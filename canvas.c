@@ -30,6 +30,7 @@ void init_canvas(void)
 	_bg_image = GenImageChecked(64, 64, 1, 1, DARKGRAY, GRAY);
 	_image = GenImageColor(64, 64, (Color) {
 			       0, 0, 0, 0});
+	_texture = LoadTextureFromImage(_bg_image);
 	_updated = true;
 }
 
@@ -37,7 +38,6 @@ void cvs_update(void)
 {
 	static Image output;
 
-	UnloadTexture(_texture);
 	output = ImageCopy(_bg_image);
 
 	ImageDraw(&output, _image, (Rectangle) {
@@ -45,7 +45,7 @@ void cvs_update(void)
 		  , (Rectangle) {
 		  0, 0, _image.width, _image.height}
 		  , WHITE);
-	_texture = LoadTextureFromImage(output);
+	UpdateTexture(_texture, output.data);
 	_updated = false;
 
 	UnloadImage(output);
