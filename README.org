@@ -10,16 +10,19 @@ ask for?
 [[https://www.gnu.org/graphics/gplv3-with-text-136x68.png]]
 
 * Installation
+** BIY (Build It Yourself!)
+1. Read the code. I am an evil person who hides malware in FOSS.
+2. Get [[https://github.com/raysan5/raylib/][raylib]].
+3. =make release=
 
-
-* Prebuilt binaries
-** BSD
+** Prebuilt binaries
+*** BSD
 I'm sure you can figure it out; you're a BSD user
-** Linux
+*** Linux
 Coming soon! /(to extremely specific and limited platforms for now)/
-** Mac
+*** Mac
 If you buy me a MacBook, I'll consider it maybe
-** Windows
+*** Windows
 teehee what do you think?
 
 * Trivia
