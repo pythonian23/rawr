@@ -11,7 +11,7 @@ static bool _updated;
 static void flood_fill(int x, int y, Color target, Color color,
 		       bool (*proceed)(Color, Color))
 {
-	if( (x < 0) ||(_image.width <= x))
+	if ((x < 0) || (_image.width <= x))
 		return;
 	if ((y < 0) || (_image.height <= y))
 		return;
