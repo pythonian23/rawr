@@ -8,21 +8,24 @@ static Texture _texture;
 
 static bool _updated;
 
-static void flood_fill(int x, int y, Color color)
+static void flood_fill(int x, int y, Color target, Color color,
+		       bool (*proceed)(Color, Color))
 {
-	if ((x < 0) || (_image.width <= x))
+	if( (x < 0) ||(_image.width <= x))
 		return;
 	if ((y < 0) || (_image.height <= y))
 		return;
-	if (ColorIsEqual(GetImageColor(_image, x, y), color))
+	if (ColorIsEqual(target, color))
+		return;
+	if (!proceed(GetImageColor(_image, x, y), target))
 		return;
 
 	ImageDrawPixel(&_image, x, y, color);
 
-	flood_fill(x - 1, y, color);
-	flood_fill(x + 1, y, color);
-	flood_fill(x, y - 1, color);
-	flood_fill(x, y + 1, color);
+	flood_fill(x - 1, y, target, color, proceed);
+	flood_fill(x + 1, y, target, color, proceed);
+	flood_fill(x, y - 1, target, color, proceed);
+	flood_fill(x, y + 1, target, color, proceed);
 }
 
 void init_canvas(void)
@@ -82,7 +85,9 @@ void cvs_draw_line(Vector2 vec1, Vector2 vec2, Color color)
 
 void cvs_fill(Vector2 origin, Color color)
 {
-	flood_fill(origin.x, origin.y, color);
+	flood_fill(origin.x, origin.y,
+		   GetImageColor(_image, origin.x, origin.y), BLUE,
+		   &ColorIsEqual);
 	_updated = true;
 }
 
