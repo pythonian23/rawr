@@ -86,7 +86,7 @@ void cvs_draw_line(Vector2 vec1, Vector2 vec2, Color color)
 void cvs_fill(Vector2 origin, Color color)
 {
 	flood_fill(origin.x, origin.y,
-		   GetImageColor(_image, origin.x, origin.y), BLUE,
+		   GetImageColor(_image, origin.x, origin.y), color,
 		   &ColorIsEqual);
 	_updated = true;
 }
