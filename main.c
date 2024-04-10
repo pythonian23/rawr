@@ -1,6 +1,5 @@
 #include "raylib.h"
 #include "raymath.h"
-#include "raygui/src/raygui.h"
 #include "canvas.h"
 
 #ifndef LOG_LEVEL
@@ -11,7 +10,7 @@ static int tps;
 static Camera2D camera;
 static float scale;
 
-static Color main_colour = { 255, 0, 255, 255 };
+static Color main_color = { 255, 0, 255, 255 };
 
 static void init_raylib(void)
 {
@@ -56,12 +55,12 @@ static void handle_input(void)
 	}
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
 		draw_position = mouse_position();
-		cvs_draw_line(draw_position_prev, draw_position, main_colour);
+		cvs_draw_line(draw_position_prev, draw_position, main_color);
 		draw_position_prev = draw_position;
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
-		cvs_fill(mouse_position(), main_colour);
+		cvs_fill(mouse_position(), main_color);
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
@@ -100,9 +99,6 @@ static void render(void)
 			DrawTexture(cvs_get_texture(), 0, 0, WHITE);
 		}
 		EndMode2D();
-
-		GuiColorPanel((Rectangle) {
-			      0, 0, 320, 320}, "Colour Picker", &main_colour);
 
 		DrawFPS(0, 0);
 	}
