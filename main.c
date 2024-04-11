@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "raygui/src/raygui.h"
 #include "canvas.h"
+#include "ui.h"
 
 #ifndef LOG_LEVEL
 #define LOG_LEVEL LOG_DEBUG
@@ -10,9 +11,6 @@
 static int _tps;
 static Camera2D _camera;
 static float _scale;
-
-static bool _ui_focused = false;
-static Rectangle _picker_bounds = { 0, 0, 256, 256 };
 
 static Color _main_color = { 255, 0, 255, 255 };
 
@@ -31,13 +29,9 @@ static void init(void)
 {
 	init_raylib();
 	init_canvas();
+	init_ui();
 
 	_scale = 1;
-}
-
-static bool _mouse_in_ui()
-{
-	return (CheckCollisionPointRec(GetMousePosition(), _picker_bounds));
 }
 
 static Vector2 _mouse_position(void)
@@ -47,6 +41,8 @@ static Vector2 _mouse_position(void)
 
 static void _handle_input(void)
 {
+	if (ui_has_cursor())
+		return;
 
 	static Vector2 draw_position;
 	static Vector2 draw_position_prev;
@@ -59,20 +55,13 @@ static void _handle_input(void)
 		_scale = 1;
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		if (_mouse_in_ui())
-			_ui_focused = true;
-		else {
-			draw_position = _mouse_position();
-			draw_position_prev = draw_position;
-		}
+		draw_position = _mouse_position();
+		draw_position_prev = draw_position;
 	}
-	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !_ui_focused) {
+	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
 		draw_position = _mouse_position();
 		cvs_draw_line(draw_position_prev, draw_position, _main_color);
 		draw_position_prev = draw_position;
-	}
-	if (IsMouseButtonUp(MOUSE_BUTTON_LEFT)) {
-		_ui_focused = false;
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
@@ -116,7 +105,7 @@ static void _render(void)
 		}
 		EndMode2D();
 
-		GuiColorPicker(_picker_bounds, "Color Picker", &_main_color);
+		GuiColorPicker(ui_picker_bounds, "Color Picker", &_main_color);	//ui_render()
 
 		DrawFPS(0, 0);
 	}

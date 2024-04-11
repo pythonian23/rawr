@@ -18,11 +18,14 @@ build/raygui.o: build raygui/src/raygui.h
 build/canvas.o: build canvas.c
 	gcc -o build/canvas.o canvas.c -c -fpic -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 $(FLAGS)
 
+build/ui.o: build ui.c
+	gcc -o build/ui.o ui.c -c -fpic -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 $(FLAGS)
+
 build/main.o: build main.c
 	gcc -o build/main.o main.c -c -fpic -lraylib -lGL -lm -lpthread -ldl -lrt -lX11 $(FLAGS)
 
-build/rawr: build build/raygui.o build/canvas.o build/main.o
-	gcc -o build/rawr build/raygui.o build/canvas.o build/main.o -lraylib -lGL -lm -ldl -lrt -lX11 $(FLAGS)
+build/rawr: build build/raygui.o build/canvas.o build/ui.o build/main.o
+	gcc -o build/rawr build/raygui.o build/canvas.o build/ui.o build/main.o -lraylib -lGL -lm -ldl -lrt -lX11 $(FLAGS)
 
 debug: FLAGS=-g
 debug: build/rawr
