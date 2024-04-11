@@ -10,6 +10,7 @@
 
 static int _tps;
 static Camera2D _camera;
+static Vector2 _pan;
 static float _scale;
 
 static Color _main_color = { 255, 0, 255, 255 };
@@ -54,6 +55,15 @@ static void _handle_input(void)
 	if (IsKeyPressed(KEY_ZERO))
 		_scale = 1;
 
+	if (IsKeyPressed(KEY_LEFT))
+		_pan.x -= 4;
+	if (IsKeyPressed(KEY_RIGHT))
+		_pan.x += 4;
+	if (IsKeyPressed(KEY_UP))
+		_pan.y -= 4;
+	if (IsKeyPressed(KEY_DOWN))
+		_pan.y += 4;
+
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
 		draw_position = _mouse_position();
 		draw_position_prev = draw_position;
@@ -83,14 +93,17 @@ static void _handle_input(void)
 
 static void _handle_camera(void)
 {
+	//TODO: clamp pan to screen edge
+
 	_camera.target = (Vector2) {
 	cvs_get_width() * 0.5, cvs_get_height() * 0.5};
+	_camera.target = Vector2Add(_camera.target, _pan);
 	_camera.offset = (Vector2) {
 	GetScreenWidth() * 0.5, GetScreenHeight() * 0.5};
 	_camera.zoom =
-	    (GetScreenWidth() < GetScreenHeight()?
-	     GetScreenWidth() * _scale / cvs_get_width() :
-	     GetScreenHeight() * _scale / cvs_get_height());
+	    (GetScreenWidth() <
+	     GetScreenHeight()? GetScreenWidth() * _scale /
+	     cvs_get_width() : GetScreenHeight() * _scale / cvs_get_height());
 }
 
 static void _render(void)
