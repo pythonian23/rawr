@@ -14,7 +14,7 @@ static float _scale;
 static bool _ui_focused = false;
 static Rectangle _picker_bounds = { 0, 0, 256, 256 };
 
-static Color _main_colour = { 255, 0, 255, 255 };
+static Color _main_color = { 255, 0, 255, 255 };
 
 static void init_raylib(void)
 {
@@ -68,7 +68,7 @@ static void _handle_input(void)
 	}
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !_ui_focused) {
 		draw_position = _mouse_position();
-		cvs_draw_line(draw_position_prev, draw_position, _main_colour);
+		cvs_draw_line(draw_position_prev, draw_position, _main_color);
 		draw_position_prev = draw_position;
 	}
 	if (IsMouseButtonUp(MOUSE_BUTTON_LEFT)) {
@@ -76,7 +76,7 @@ static void _handle_input(void)
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
-		cvs_fill(_mouse_position(), _main_colour);
+		cvs_fill(_mouse_position(), _main_color);
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
@@ -116,7 +116,7 @@ static void _render(void)
 		}
 		EndMode2D();
 
-		GuiColorPanel(_picker_bounds, "Colour Picker", &_main_colour);
+		GuiColorPicker(_picker_bounds, "Color Picker", &_main_color);
 
 		DrawFPS(0, 0);
 	}
