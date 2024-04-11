@@ -11,6 +11,9 @@ static int tps;
 static Camera2D camera;
 static float scale;
 
+static bool ui_focused = false;
+static Rectangle picker_bounds = { 0, 0, 256, 256 };
+
 static Color main_colour = { 255, 0, 255, 255 };
 
 static void init_raylib(void)
@@ -32,6 +35,11 @@ static void init(void)
 	scale = 1;
 }
 
+static bool mouse_in_ui()
+{
+	return (CheckCollisionPointRec(GetMousePosition(), picker_bounds));
+}
+
 static Vector2 mouse_position(void)
 {
 	return GetScreenToWorld2D(GetMousePosition(), camera);
@@ -51,13 +59,20 @@ static void handle_input(void)
 		scale = 1;
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
-		draw_position = mouse_position();
-		draw_position_prev = draw_position;
+		if (mouse_in_ui())
+			ui_focused = true;
+		else {
+			draw_position = mouse_position();
+			draw_position_prev = draw_position;
+		}
 	}
-	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && !ui_focused) {
 		draw_position = mouse_position();
 		cvs_draw_line(draw_position_prev, draw_position, main_colour);
 		draw_position_prev = draw_position;
+	}
+	if (IsMouseButtonUp(MOUSE_BUTTON_LEFT)) {
+		ui_focused = false;
 	}
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
@@ -101,8 +116,7 @@ static void render(void)
 		}
 		EndMode2D();
 
-		GuiColorPanel((Rectangle) {
-			      0, 0, 320, 320}, "Colour Picker", &main_colour);
+		GuiColorPanel(picker_bounds, "Colour Picker", &main_colour);
 
 		DrawFPS(0, 0);
 	}
