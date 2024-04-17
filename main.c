@@ -13,7 +13,7 @@ static Camera2D _camera;
 static Vector2 _pan;
 static float _scale;
 
-static Color _main_color = { 255, 0, 255, 255 };
+static Color _main_color;
 
 static void init_raylib(void)
 {
@@ -33,6 +33,8 @@ static void init(void)
 	init_ui();
 
 	_scale = 1;
+	_main_color = (Color) {
+	255, 0, 255, 255};
 }
 
 static Vector2 _mouse_position(void)
