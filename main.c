@@ -45,8 +45,7 @@ static Vector2 _mouse_position(void)
 
 static void _handle_input(void)
 {
-	if (ui_has_cursor())
-		return;
+	ui_handle_input();
 
 	static Vector2 draw_position;
 	static Vector2 draw_position_prev;
@@ -67,21 +66,25 @@ static void _handle_input(void)
 	if (IsKeyPressed(KEY_DOWN))
 		_pan.y += 4;
 
-	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
+	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
 		draw_position = _mouse_position();
 		draw_position_prev = draw_position;
 	}
-	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)
+	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
 		draw_position = _mouse_position();
 		cvs_draw_line(draw_position_prev, draw_position, _main_color);
 		draw_position_prev = draw_position;
 	}
 
-	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) {
+	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)
+	    && ui_button_available(MOUSE_BUTTON_MIDDLE)) {
 		cvs_fill(_mouse_position(), _main_color);
 	}
 
-	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT))
+	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)
+	    && ui_button_available(MOUSE_BUTTON_RIGHT))
 		for (int x = 0; x < cvs_get_width(); x++)
 			cvs_draw_line((Vector2) {
 				      x, 0}
