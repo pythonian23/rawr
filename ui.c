@@ -2,6 +2,8 @@
 #include "raylib.h"
 #include "raygui/src/raygui.h"
 
+Color *ui_selection_color;
+
 Rectangle ui_picker_bounds;
 
 void init_ui(void)
@@ -12,6 +14,7 @@ void init_ui(void)
 
 void ui_render(void)
 {
+	GuiColorPicker(ui_picker_bounds, "Color Picker", ui_selection_color);
 }
 
 bool ui_has_cursor(void)

@@ -31,6 +31,7 @@ static void init(void)
 	init_raylib();
 	init_canvas();
 	init_ui();
+	ui_selection_color = &_main_color;
 
 	_scale = 1;
 	_main_color = (Color) {
@@ -120,7 +121,7 @@ static void _render(void)
 		}
 		EndMode2D();
 
-		GuiColorPicker(ui_picker_bounds, "Color Picker", &_main_color);	//ui_render()
+		ui_render();
 
 		DrawFPS(0, 0);
 	}
