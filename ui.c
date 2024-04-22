@@ -4,31 +4,31 @@
 
 Color *ui_selection_color;
 
-Rectangle ui_picker_bounds;
-Rectangle ui_button_pen_bounds;
-Rectangle ui_button_fill_bounds;
-Rectangle ui_button_eraser_bounds;
+static Rectangle _bnd_picker;
+static Rectangle _bnd_bttn_pen;
+static Rectangle _bnd_bttn_fill;
+static Rectangle _bnd_bttn_eraser;
 
 static unsigned char _consumed_buttons;
 
 void init_ui(void)
 {
-	ui_picker_bounds = (Rectangle) {
+	_bnd_picker = (Rectangle) {
 	0, 0, 256, 256};
-	ui_button_pen_bounds = (Rectangle) {
+	_bnd_bttn_pen = (Rectangle) {
 	0, 256, 64, 64};
-	ui_button_fill_bounds = (Rectangle) {
+	_bnd_bttn_fill = (Rectangle) {
 	64, 256, 64, 64};
-	ui_button_eraser_bounds = (Rectangle) {
+	_bnd_bttn_eraser = (Rectangle) {
 	128, 256, 64, 64};
 }
 
 bool _ui_bound_check(Vector2 coord)
 {
-	return CheckCollisionPointRec(coord, ui_picker_bounds)
-	    || CheckCollisionPointRec(coord, ui_button_pen_bounds)
-	    || CheckCollisionPointRec(coord, ui_button_fill_bounds)
-	    || CheckCollisionPointRec(coord, ui_button_eraser_bounds);
+	return CheckCollisionPointRec(coord, _bnd_picker)
+	    || CheckCollisionPointRec(coord, _bnd_bttn_pen)
+	    || CheckCollisionPointRec(coord, _bnd_bttn_fill)
+	    || CheckCollisionPointRec(coord, _bnd_bttn_eraser);
 }
 
 void ui_handle_input(void)
@@ -48,11 +48,11 @@ void ui_handle_input(void)
 
 void ui_render(void)
 {
-	GuiColorPicker(ui_picker_bounds, "Color Picker", ui_selection_color);
+	GuiColorPicker(_bnd_picker, "Color Picker", ui_selection_color);
 
-	GuiButton(ui_button_pen_bounds, GuiIconText(ICON_PENCIL_BIG, ""));
-	GuiButton(ui_button_fill_bounds, GuiIconText(ICON_COLOR_BUCKET, ""));
-	GuiButton(ui_button_eraser_bounds, GuiIconText(ICON_RUBBER, ""));
+	GuiButton(_bnd_bttn_pen, GuiIconText(ICON_PENCIL_BIG, ""));
+	GuiButton(_bnd_bttn_fill, GuiIconText(ICON_COLOR_BUCKET, ""));
+	GuiButton(_bnd_bttn_eraser, GuiIconText(ICON_RUBBER, ""));
 }
 
 bool ui_button_available(MouseButton button)

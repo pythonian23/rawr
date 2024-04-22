@@ -4,9 +4,6 @@
 
 extern Color *ui_selection_color;
 
-extern Rectangle ui_picker_bounds;
-extern Rectangle ui_button_pen_bounds;
-
 extern void init_ui(void);
 extern void ui_handle_input(void);
 extern void ui_render(void);
