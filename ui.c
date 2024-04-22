@@ -42,7 +42,7 @@ void ui_handle_input(void)
 			if (_ui_bound_check(GetMousePosition()))
 				_consumed_buttons |= 1 << button;
 		if (IsMouseButtonReleased(button))
-			_consumed_buttons &= ~(1 << button);;
+			_consumed_buttons &= ~(1 << button);
 	}
 }
 
