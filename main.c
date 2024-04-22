@@ -68,29 +68,39 @@ static void _handle_input(void)
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)
 	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
-		draw_position = _mouse_position();
-		draw_position_prev = draw_position;
+		switch (ui_edit_mode) {
+		case MODE_DRAW:
+			draw_position = _mouse_position();
+			draw_position_prev = draw_position;
+			break;
+		case MODE_FILL:
+			cvs_fill(_mouse_position(), _main_color);
+			break;
+		case MODE_ERASE:
+			for (int x = 0; x < cvs_get_width(); x++)
+				cvs_draw_line((Vector2) {
+					      x, 0}, (Vector2) {
+					      x, cvs_get_height() - 1}, (Color) {
+					      0, 0, 0, 0});
+				break;
+		}
 	}
+
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)
 	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
-		draw_position = _mouse_position();
-		cvs_draw_line(draw_position_prev, draw_position, _main_color);
-		draw_position_prev = draw_position;
+		switch (ui_edit_mode) {
+		case MODE_DRAW:
+			draw_position = _mouse_position();
+			cvs_draw_line(draw_position_prev, draw_position,
+				      _main_color);
+			draw_position_prev = draw_position;
+			break;
+		case MODE_FILL:
+			break;
+		case MODE_ERASE:
+			break;
+		}
 	}
-
-	if (IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)
-	    && ui_button_available(MOUSE_BUTTON_MIDDLE)) {
-		cvs_fill(_mouse_position(), _main_color);
-	}
-
-	if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)
-	    && ui_button_available(MOUSE_BUTTON_RIGHT))
-		for (int x = 0; x < cvs_get_width(); x++)
-			cvs_draw_line((Vector2) {
-				      x, 0}
-				      , (Vector2) {
-				      x, cvs_get_height() - 1}, (Color) {
-				      0, 0, 0, 0});
 
 	if (IsKeyPressed(KEY_S))
 		if (!cvs_save_to("img.png"))

@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include "raygui/src/raygui.h"
 
+EditMode ui_edit_mode;
 Color *ui_selection_color;
 
 static Rectangle _bnd_picker;
@@ -13,6 +14,8 @@ static unsigned char _consumed_buttons;
 
 void init_ui(void)
 {
+	ui_edit_mode = MODE_DRAW;
+
 	_bnd_picker = (Rectangle) {
 	0 + 4, 0 + 4, 256 - 4, 256 - 4};
 	_bnd_bttn_pen = (Rectangle) {
@@ -50,9 +53,12 @@ void ui_render(void)
 {
 	GuiColorPicker(_bnd_picker, "Color Picker", ui_selection_color);
 
-	GuiButton(_bnd_bttn_pen, GuiIconText(ICON_PENCIL_BIG, ""));
-	GuiButton(_bnd_bttn_fill, GuiIconText(ICON_COLOR_BUCKET, ""));
-	GuiButton(_bnd_bttn_eraser, GuiIconText(ICON_RUBBER, ""));
+	if (GuiButton(_bnd_bttn_pen, GuiIconText(ICON_PENCIL_BIG, "")))
+		ui_edit_mode = MODE_DRAW;
+	if (GuiButton(_bnd_bttn_fill, GuiIconText(ICON_COLOR_BUCKET, "")))
+		ui_edit_mode = MODE_FILL;
+	if (GuiButton(_bnd_bttn_eraser, GuiIconText(ICON_RUBBER, "")))
+		ui_edit_mode = MODE_ERASE;
 }
 
 bool ui_button_available(MouseButton button)

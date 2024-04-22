@@ -2,6 +2,13 @@
 #define UI_H_
 #include "raylib.h"
 
+typedef enum {
+	MODE_DRAW,
+	MODE_FILL,
+	MODE_ERASE,
+} EditMode;
+
+extern EditMode ui_edit_mode;
 extern Color *ui_selection_color;
 
 extern void init_ui(void);
