@@ -1,6 +1,8 @@
 #+TITLE:rawr Pixel Art Editor
 #+OPTIONS: toc:nil
 
+[[https://github.com/pythonian23/rawr/assets/63051526/5d3e614c-7091-49dd-bbe0-c1aa0c8efcc0]]
+
 * /rawr/
 /rawr/ stands for /raster art with raylib/. Draw in a fixed resolution +in a
 single color+! +No erase+! +Only clear+! A single fixed filename! What more
