@@ -14,13 +14,13 @@ static unsigned char _consumed_buttons;
 void init_ui(void)
 {
 	_bnd_picker = (Rectangle) {
-	0, 0, 256, 256};
+	0 + 4, 0 + 4, 256 - 4, 256 - 4};
 	_bnd_bttn_pen = (Rectangle) {
-	0, 256, 64, 64};
+	0 + 4, 256 + 4, 128 - 4, 128 - 4};
 	_bnd_bttn_fill = (Rectangle) {
-	64, 256, 64, 64};
+	128 + 4, 256 + 4, 128 - 4, 128 - 4};
 	_bnd_bttn_eraser = (Rectangle) {
-	128, 256, 64, 64};
+	0 + 4, 384 + 4, 128 - 4, 128 - 4};
 }
 
 bool _ui_bound_check(Vector2 coord)
