@@ -7,6 +7,8 @@
 #ifndef LOG_LEVEL
 #define LOG_LEVEL LOG_DEBUG
 #endif
+#define SUPPORT_SCREEN_CAPTURE
+#define SUPPORT_GIF_RECORDING
 
 static int _tps;
 static Camera2D _camera;
