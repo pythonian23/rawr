@@ -28,5 +28,10 @@ If you buy me a MacBook, I'll consider it maybe
 *** Windows
 teehee what do you think?
 
+* Credits
++ Heavily inspired by [[https://github.com/piskelapp/piskel][Piskel]]
++ Made using [[https://github.com/raysan5/raylib][Raylib]]
++ With encouragement from [[https://github.com/cmdada/][Ada]]
+
 * Trivia
 + This is the first image ever saved with /rawr/: [[./first.png]]
