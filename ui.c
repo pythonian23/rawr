@@ -23,10 +23,10 @@ void init_ui(void)
 	ui_edit_mode = MODE_DRAW;
 
 	_bnd_picker = (Rectangle) {
-	0 + 4, 0 + 4, 256 - 4, 256 - 4};
+	0 + 4, 0 + 4, 192 - 4, 192 - 4};
 	_grid = (grid_t) {
 		(Vector2) {
-	0, 256}, 128, 128, 4};
+	0, 192}, 96, 96, 4};
 	_bttn_pen = (button_t) {
 		&_grid, (Rectangle) {
 	0, 0, 1, 1}, LoadTextureFromImage(LoadImage("res/pen.png"))};
