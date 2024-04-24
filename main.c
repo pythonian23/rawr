@@ -72,6 +72,7 @@ static void _handle_input(void)
 	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
 		switch (ui_edit_mode) {
 		case MODE_DRAW:
+		case MODE_LINE:
 		case MODE_ERASE:
 			draw_position = _mouse_position();
 			draw_position_prev = draw_position;
@@ -83,7 +84,6 @@ static void _handle_input(void)
 			break;
 		}
 	}
-
 	if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)
 	    && ui_button_available(MOUSE_BUTTON_LEFT)) {
 		switch (ui_edit_mode) {
@@ -92,8 +92,6 @@ static void _handle_input(void)
 			cvs_draw_line(draw_position_prev, draw_position,
 				      _main_color);
 			draw_position_prev = draw_position;
-			break;
-		case MODE_FILL:
 			break;
 		case MODE_ERASE:
 			draw_position = _mouse_position();
@@ -104,6 +102,31 @@ static void _handle_input(void)
 			break;
 		case MODE_PICKER:
 			_main_color = cvs_get_pixel(_mouse_position());
+			break;
+		case MODE_LINE:
+		case MODE_FILL:
+			break;
+
+		}
+	}
+	if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
+		switch (ui_edit_mode) {
+		case MODE_DRAW:
+		case MODE_LINE:
+			draw_position = _mouse_position();
+			cvs_draw_line(draw_position_prev, draw_position,
+				      _main_color);
+			draw_position_prev = draw_position;
+			break;
+		case MODE_ERASE:
+			draw_position = _mouse_position();
+			cvs_draw_line(draw_position_prev, draw_position, (Color) {
+				      0, 0, 0, 0}
+			);
+			draw_position_prev = draw_position;
+			break;
+		case MODE_FILL:
+		case MODE_PICKER:
 			break;
 		}
 	}

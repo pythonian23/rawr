@@ -10,6 +10,7 @@ static Rectangle _bnd_picker;
 
 static grid_t _grid;
 static button_t _bttn_pen;
+static button_t _bttn_line;
 static button_t _bttn_fill;
 static button_t _bttn_eraser;
 static button_t _bttn_picker;
@@ -31,15 +32,18 @@ void init_ui(void)
 	_bttn_pen = (button_t) {
 		&_grid, (Rectangle) {
 	0, 0, 1, 1}, LoadTextureFromImage(LoadImage("res/pen.png"))};
+	_bttn_line = (button_t) {
+		&_grid, (Rectangle) {
+	1, 0, 1, 1}, LoadTextureFromImage(LoadImage("res/line.png"))};
 	_bttn_fill = (button_t) {
 		&_grid, (Rectangle) {
-	1, 0, 1, 1}, LoadTextureFromImage(LoadImage("res/fill.png"))};
+	0, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/fill.png"))};
 	_bttn_eraser = (button_t) {
 		&_grid, (Rectangle) {
-	0, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/eraser.png"))};
+	1, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/eraser.png"))};
 	_bttn_picker = (button_t) {
 		&_grid, (Rectangle) {
-	1, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/picker.png"))};
+	0, 2, 1, 1}, LoadTextureFromImage(LoadImage("res/picker.png"))};
 }
 
 void ui_handle_input(void)
@@ -58,6 +62,8 @@ void ui_handle_input(void)
 				ui_edit_mode = MODE_FILL;
 			else if (gui_button_inside(&_bttn_eraser, cursor))
 				ui_edit_mode = MODE_ERASE;
+			else if (gui_button_inside(&_bttn_line, cursor))
+				ui_edit_mode = MODE_LINE;
 			else if (gui_button_inside(&_bttn_picker, cursor))
 				ui_edit_mode = MODE_PICKER;
 			else
@@ -74,6 +80,7 @@ void ui_render(void)
 	GuiColorPicker(_bnd_picker, "Color Picker", ui_selection_color);
 
 	gui_button_draw(&_bttn_pen);
+	gui_button_draw(&_bttn_line);
 	gui_button_draw(&_bttn_fill);
 	gui_button_draw(&_bttn_eraser);
 	gui_button_draw(&_bttn_picker);

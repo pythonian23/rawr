@@ -4,6 +4,7 @@
 
 typedef enum {
 	MODE_DRAW,
+	MODE_LINE,
 	MODE_FILL,
 	MODE_ERASE,
 	MODE_PICKER,
