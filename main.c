@@ -79,6 +79,8 @@ static void _handle_input(void)
 		case MODE_FILL:
 			cvs_fill(_mouse_position(), _main_color);
 			break;
+		case MODE_PICKER:
+			break;
 		}
 	}
 
@@ -99,6 +101,9 @@ static void _handle_input(void)
 				      0, 0, 0, 0}
 			);
 			draw_position_prev = draw_position;
+			break;
+		case MODE_PICKER:
+			_main_color = cvs_get_pixel(_mouse_position());
 			break;
 		}
 	}

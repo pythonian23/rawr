@@ -12,6 +12,7 @@ static grid_t _grid;
 static button_t _bttn_pen;
 static button_t _bttn_fill;
 static button_t _bttn_eraser;
+static button_t _bttn_picker;
 
 static unsigned char _consumed_buttons;
 
@@ -36,6 +37,9 @@ void init_ui(void)
 	_bttn_eraser = (button_t) {
 		&_grid, (Rectangle) {
 	0, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/eraser.png"))};
+	_bttn_picker = (button_t) {
+		&_grid, (Rectangle) {
+	1, 1, 1, 1}, LoadTextureFromImage(LoadImage("res/picker.png"))};
 }
 
 void ui_handle_input(void)
@@ -54,6 +58,8 @@ void ui_handle_input(void)
 				ui_edit_mode = MODE_FILL;
 			else if (gui_button_inside(&_bttn_eraser, cursor))
 				ui_edit_mode = MODE_ERASE;
+			else if (gui_button_inside(&_bttn_picker, cursor))
+				ui_edit_mode = MODE_PICKER;
 			else
 				continue;
 			_consumed_buttons |= 1 << button;
@@ -70,6 +76,7 @@ void ui_render(void)
 	gui_button_draw(&_bttn_pen);
 	gui_button_draw(&_bttn_fill);
 	gui_button_draw(&_bttn_eraser);
+	gui_button_draw(&_bttn_picker);
 }
 
 bool ui_button_available(MouseButton button)

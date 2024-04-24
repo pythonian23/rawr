@@ -6,6 +6,7 @@ typedef enum {
 	MODE_DRAW,
 	MODE_FILL,
 	MODE_ERASE,
+	MODE_PICKER,
 } EditMode;
 
 extern EditMode ui_edit_mode;

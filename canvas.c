@@ -71,6 +71,11 @@ int cvs_get_height(void)
 	return _image.height;
 }
 
+Color cvs_get_pixel(Vector2 vec)
+{
+	return GetImageColor(_image, vec.x, vec.y);
+}
+
 void cvs_set_pixel(Vector2 vec, Color color)
 {
 	ImageDrawPixelV(&_image, vec, color);

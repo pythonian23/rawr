@@ -8,6 +8,7 @@ extern void cvs_update(void);
 extern Texture cvs_get_texture(void);
 extern int cvs_get_width(void);
 extern int cvs_get_height(void);
+extern Color cvs_get_pixel(Vector2 vec);
 extern void cvs_set_pixel(Vector2 vec, Color color);
 extern void cvs_draw_line(Vector2 vec1, Vector2 vec2, Color color);
 extern void cvs_fill(Vector2 origin, Color color);
