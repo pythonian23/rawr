@@ -12,6 +12,8 @@ extern Color cvs_get_pixel(Vector2 vec);
 extern void cvs_set_pixel(Vector2 vec, Color color);
 extern void cvs_draw_line(Vector2 vec1, Vector2 vec2, Color color);
 extern void cvs_fill(Vector2 origin, Color color);
+extern void cvs_buffer_new(void);
+extern void cvs_buffer_commit(void);
 extern bool cvs_save_to(char *filename);
 
 #endif				// CANVAS_H_
