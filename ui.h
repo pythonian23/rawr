@@ -12,6 +12,7 @@ typedef enum {
 
 extern EditMode ui_edit_mode;
 extern Color *ui_selection_color;
+extern void (*ui_save_fn)(void);
 
 extern void init_ui(void);
 extern void ui_handle_input(void);

@@ -5,6 +5,7 @@
 
 EditMode ui_edit_mode;
 Color *ui_selection_color;
+void (*ui_save_fn)(void);
 
 static Rectangle _bnd_picker;
 
@@ -14,6 +15,7 @@ static button_t _bttn_line;
 static button_t _bttn_fill;
 static button_t _bttn_eraser;
 static button_t _bttn_picker;
+static button_t _bttn_save;
 
 static unsigned char _consumed_buttons;
 
@@ -44,6 +46,9 @@ void init_ui(void)
 	_bttn_picker = (button_t) {
 		&_grid, (Rectangle) {
 	0, 2, 1, 1}, LoadTextureFromImage(LoadImage("res/picker.png"))};
+	_bttn_save = (button_t) {
+		&_grid, (Rectangle) {
+	0, 3, 2, 1}, LoadTextureFromImage(LoadImage("res/save.png"))};
 }
 
 void ui_handle_input(void)
@@ -66,6 +71,8 @@ void ui_handle_input(void)
 				ui_edit_mode = MODE_LINE;
 			else if (gui_button_inside(&_bttn_picker, cursor))
 				ui_edit_mode = MODE_PICKER;
+			else if (gui_button_inside(&_bttn_save, cursor))
+				ui_save_fn();
 			else
 				continue;
 			_consumed_buttons |= 1 << button;
@@ -84,6 +91,7 @@ void ui_render(void)
 	gui_button_draw(&_bttn_fill);
 	gui_button_draw(&_bttn_eraser);
 	gui_button_draw(&_bttn_picker);
+	gui_button_draw(&_bttn_save);
 }
 
 bool ui_button_available(MouseButton button)

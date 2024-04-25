@@ -28,12 +28,19 @@ static void init_raylib(void)
 	0};
 }
 
+static void _save_fn(void)
+{
+	if (!cvs_save_to("img.png"))
+		TraceLog(LOG_WARNING, "Image save failed!");
+}
+
 static void init(void)
 {
 	init_raylib();
 	init_canvas();
 	init_ui();
 	ui_selection_color = &_main_color;
+	ui_save_fn = &_save_fn;
 
 	_scale = 1;
 	_main_color = (Color) {
@@ -116,10 +123,6 @@ static void _handle_input(void)
 	if (IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) {
 		cvs_buffer_commit();
 	}
-
-	if (IsKeyPressed(KEY_S))
-		if (!cvs_save_to("img.png"))
-			TraceLog(LOG_WARNING, "Image save failed!");
 }
 
 static void _handle_camera(void)
