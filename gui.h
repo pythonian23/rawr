@@ -28,7 +28,7 @@ extern Color gui_theme_fore;
 extern Rectangle gui_grid_rect(grid_t * g, Rectangle r);
 
 extern void gui_textbox_draw(textbox_t * t);
-extern void gui_button_draw(button_t * button);
+extern void gui_button_draw(button_t * b);
 extern bool gui_button_inside(button_t * b, Vector2 pos);
 
 #endif
