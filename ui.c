@@ -16,6 +16,7 @@ static button_t _bttn_fill;
 static button_t _bttn_eraser;
 static button_t _bttn_picker;
 static button_t _bttn_save;
+static textbox_t _txtbx_test;
 
 static unsigned char _consumed_buttons;
 
@@ -49,6 +50,9 @@ void init_ui(void)
 	_bttn_save = (button_t) {
 		&_grid, (Rectangle) {
 	0, 3, 2, 1}, LoadTextureFromImage(LoadImage("res/save.png"))};
+	_txtbx_test = (textbox_t) {
+		&_grid, (Rectangle) {
+	0, 4, 2, 0.5}, "Hello world!", false, 32};
 }
 
 void ui_handle_input(void)
@@ -92,6 +96,7 @@ void ui_render(void)
 	gui_button_draw(&_bttn_eraser);
 	gui_button_draw(&_bttn_picker);
 	gui_button_draw(&_bttn_save);
+	gui_textbox_draw(&_txtbx_test);
 }
 
 bool ui_button_available(MouseButton button)

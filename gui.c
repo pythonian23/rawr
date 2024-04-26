@@ -14,6 +14,13 @@ Rectangle gui_grid_rect(grid_t *g, Rectangle r)
 		    g->height * r.height - g->gap,};
 }
 
+void gui_textbox_draw(textbox_t *t)
+{
+	Rectangle rect = gui_grid_rect(t->grid, t->bounds);
+	DrawRectangleRec(rect, gui_theme_back);
+	DrawText(t->buffer, rect.x, rect.y, t->fontsize, gui_theme_fore);
+}
+
 void gui_button_draw(button_t *b)
 {
 	Rectangle rect = gui_grid_rect(b->grid, b->bounds);
