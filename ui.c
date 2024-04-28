@@ -84,6 +84,17 @@ void ui_handle_input(void)
 		if (IsMouseButtonReleased(button))
 			_consumed_buttons &= ~(1 << button);
 	}
+
+	if (IsKeyPressed(KEY_D))
+		ui_edit_mode = MODE_DRAW;
+	if (IsKeyPressed(KEY_F))
+		ui_edit_mode = MODE_FILL;
+	if (IsKeyPressed(KEY_E))
+		ui_edit_mode = MODE_ERASE;
+	if (IsKeyPressed(KEY_L))
+		ui_edit_mode = MODE_LINE;
+	if (IsKeyPressed(KEY_P))
+		ui_edit_mode = MODE_PICKER;
 }
 
 void ui_render(void)
