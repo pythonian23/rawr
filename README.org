@@ -1,10 +1,10 @@
 #+TITLE:rawr Pixel Art Editor
 #+OPTIONS: toc:nil
 
-[[https://github.com/pythonian23/rawr/assets/63051526/16db41ef-922a-4cd2-8071-1d7b9d6a0935.gif]]
+Image example coming soon...
 
 * /rawr/
-/rawr/ stands for /raster art with raylib/. Draw in a fixed resolution +in a
+/rawr/ stands for /raster art with rawr/. Draw in a fixed resolution +in a
 single color+! +No erase+! +Only clear+! A single fixed filename! What more
 could you ask for?
 
@@ -14,9 +14,7 @@ could you ask for?
 * Installation
 ** BIY (Build It Yourself!)
 1. Read the code. I am an evil person who hides malware in FOSS.
-2. Get [[https://github.com/raysan5/raylib/][raylib]].
-3. =git submodule update --init=
-4. =make release=
+2. =make release=
 
 ** Prebuilt binaries
 *** BSD
@@ -30,8 +28,9 @@ teehee what do you think?
 
 * Credits
 + Heavily inspired by [[https://github.com/piskelapp/piskel][Piskel]]
-+ Made using [[https://github.com/raysan5/raylib][Raylib]]
++ Made using [[https://github.com/fyne-io/fyne][Fyne]]
 + With encouragement from [[https://github.com/cmdada/][Ada]]
 
 * Trivia
 + This is the first image ever saved with /rawr/: [[./first.png]]
++ rawr was originally made with raylib: [[https://github.com/pythonian23/rawr/releases/tag/rawr-raylib]]
