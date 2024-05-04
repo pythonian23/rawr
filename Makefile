@@ -1,4 +1,4 @@
-CODE = *.go
+CODE = *.go internal/cvs/*.go
 
 .PHONY: all format clean debug release package run
 

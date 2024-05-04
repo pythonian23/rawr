@@ -2,16 +2,16 @@ package main
 
 import (
 	"fyne.io/fyne/v2"
-	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"github.com/pythonian23/rawr/internal/cvs"
 )
 
 var (
 	mainBox,
 	buttonGrid,
-	canvasImage,
 	statusBar fyne.CanvasObject
+	canvasImage cvs.Canvas
 )
 
 func init() {
@@ -26,12 +26,10 @@ func UI() fyne.CanvasObject {
 		widget.NewButtonWithIcon("", resourceEraserPng, nil),
 		widget.NewButtonWithIcon("", resourcePickerPng, nil),
 	)
-	canvasImage := canvas.NewImageFromResource(resourcePenPng)
-	canvasImage.FillMode = canvas.ImageFillContain
-	canvasImage.ScaleMode = canvas.ImageScalePixels
+	canvasImage = cvs.New()
 	statusBar = widget.NewLabel("rawr")
 
-	mainBox = container.NewBorder(nil, nil, container.NewVScroll(buttonGrid), nil, container.NewScroll(canvasImage))
+	mainBox = container.NewBorder(nil, nil, container.NewVScroll(buttonGrid), nil, canvasImage.Raster)
 
 	return container.NewBorder(nil, statusBar, nil, nil, mainBox)
 }
